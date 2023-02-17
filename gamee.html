@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Save Gameplay</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+	<script>
+		function saveGameplay() {
+            var jsonString = document.getElementById("jsonInput").value;
+            var userData = JSON.parse(jsonString);
+
+            var score = document.getElementById("score").value;
+            var time = document.getElementById("time").value;
+
+            // Update the score and playTime fields with user input
+            userData.params.gameplayData.score = score;
+            userData.params.gameplayData.playTime = time;
+
+            // Generate the MD5 hash using the required format
+            var gameStateData = userData.params.gameplayData.gameStateData;
+            if (gameStateData === null) {
+                gameStateData = "";
+            }
+            var hashData = score + ":" + time + ":" + userData.params.gameplayData.gameUrl + ":" + gameStateData + ":crmjbjm3lczhlgnek9uaxz2l9svlfjw14npauhen";
+            var checksum = CryptoJS.MD5(hashData).toString();
+
+            // Update the checksum field with the generated hash
+            userData.params.gameplayData.checksum = checksum;
+
+            // Return the updated JSON to the user
+            alert(JSON.stringify(userData));
+        }
+
+	</script>
+</head>
+<body>
+	<label for="jsonInput">JSON:</label>
+	<textarea id="jsonInput" rows="10" cols="50"></textarea><br>
+
+	<label for="score">Score:</label>
+	<input type="text" id="score"><br>
+
+	<label for="time">Time:</label>
+	<input type="text" id="time"><br>
+
+	<button onclick="saveGameplay()">Save Gameplay</button>
+</body>
+</html>
