@@ -6,10 +6,10 @@
 	<script>
 		function saveGameplay() {
             var jsonString = document.getElementById("jsonInput").value;
-            var time = parseInt(document.getElementById("time").value);
+            var userData = JSON.parse(jsonString);
 
             var score = parseInt(document.getElementById("score").value);
-            var time = document.getElementById("time").value;
+            var time = parseInt(document.getElementById("time").value);
 
             // Update the score and playTime fields with user input
             userData.params.gameplayData.score = score;
@@ -21,6 +21,7 @@
                 gameStateData = "";
             }
             var hashData = score + ":" + time + ":" + userData.params.gameplayData.gameUrl + ":" + gameStateData + ":crmjbjm3lczhlgnek9uaxz2l9svlfjw14npauhen";
+            console.log(hashData);
             var checksum = CryptoJS.MD5(hashData).toString();
 
             // Update the checksum field with the generated hash
