@@ -6,9 +6,9 @@
 	<script>
 		function saveGameplay() {
             var jsonString = document.getElementById("jsonInput").value;
-            var userData = JSON.parse(jsonString);
+            var time = parseInt(document.getElementById("time").value);
 
-            var score = document.getElementById("score").value;
+            var score = parseInt(document.getElementById("score").value);
             var time = document.getElementById("time").value;
 
             // Update the score and playTime fields with user input
