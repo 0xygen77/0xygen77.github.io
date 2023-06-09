@@ -48,37 +48,37 @@
     <script>
         function calculateReward() {
             var paymentCurrency = document.getElementById("paymentCurrency").value;
-			var paymentType = document.getElementById("paymentType").value;
+            var paymentType = document.getElementById("paymentType").value;
             var amount = parseFloat(document.getElementById("amount").value);
             var reward = 0;
 			
-			if (paymentType === "B2C") {
-				if (paymentCurrency === "USD") {
-					reward = Math.floor(amount).toFixed(1) * 50;
-				} else if (paymentCurrency === "ETH") {
-					reward = (Math.floor(amount/0.001).toFixed(1)) * 100;
-				} else if (paymentCurrency === "LN") {
-					reward = (Math.floor(amount/0.1).toFixed(1)) * 400
-				}
-			} else if (paymentType === "C2C") {
-				if (paymentCurrency === "ETH") {
-					if (amount >= 0.04 && amount <= 1.3) {
-						reward = (Math.floor(amount/0.001).toFixed(1)) * 20;
-					} else if (amount > 1.3) {
-						reward = (1.3/0.001) * 20
-					} else {
-						reward = 0;
-					}
-				} else if (paymentCurrency === "LN") {
-					if (amount >= 1.6 && amount <= 50) {
-						reward = (Math.floor(amount/0.1).toFixed(1)) * 80;
-					} else if (amount > 1.6) {
-						reward = (50/0.1) * 400;
-					} else {
-						reward = 0;
-					}
-				}
-			}
+            if (paymentType === "B2C") {
+                if (paymentCurrency === "USD") {
+                    reward = Math.floor(amount).toFixed(1) * 50;
+                } else if (paymentCurrency === "ETH") {
+                    reward = (Math.floor(amount/0.001).toFixed(1)) * 100;
+                } else if (paymentCurrency === "FNSA") {
+                    reward = (Math.floor(amount/0.1).toFixed(1)) * 400
+                }
+            } else if (paymentType === "C2C") {
+                if (paymentCurrency === "ETH") {
+                    if (amount >= 0.04 && amount <= 1.3) {
+                        reward = (Math.floor(amount/0.001).toFixed(1)) * 20;
+                    } else if (amount > 1.3) {
+                        reward = (1.3/0.001) * 20
+                    } else {
+                        reward = 0;
+                    }
+                } else if (paymentCurrency === "FNSA") {
+                    if (amount >= 1.6 && amount <= 50) {
+                        reward = (Math.floor(amount/0.1).toFixed(1)) * 80;
+                    } else if (amount > 1.6) {
+                        reward = (50/0.1) * 400;
+                    } else {
+                        reward = 0;
+                    }
+                }
+            }
 
             document.getElementById("reward").innerHTML = reward;
         }
@@ -96,7 +96,7 @@
     <select id="paymentCurrency">
         <option value="USD">USD</option>
         <option value="ETH">ETH</option>
-        <option value="LN">LN</option>
+        <option value="FNSA">FNSA</option>
     </select>
     <br>
     <label for="amount">金額：</label>
