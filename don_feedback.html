@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>回饋計算器</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select,
+        input[type="number"],
+        button {
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        p {
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function calculateReward() {
+            var paymentCurrency = document.getElementById("paymentCurrency").value;
+			var paymentType = document.getElementById("paymentType").value;
+            var amount = parseFloat(document.getElementById("amount").value);
+            var reward = 0;
+			
+			if (paymentType === "B2C") {
+				if (paymentCurrency === "USD") {
+					reward = Math.floor(amount).toFixed(1) * 50;
+				} else if (paymentCurrency === "ETH") {
+					reward = (Math.floor(amount/0.001).toFixed(1)) * 100;
+				} else if (paymentCurrency === "LN") {
+					reward = (Math.floor(amount/0.1).toFixed(1)) * 400
+				}
+			} else if (paymentType === "C2C") {
+				if (paymentCurrency === "ETH") {
+					if (amount >= 0.04 && amount <= 1.3) {
+						reward = (Math.floor(amount/0.001).toFixed(1)) * 20;
+					} else if (amount < 0.04) {
+						reward = 0;
+					} else {
+						reward = (1.3/0.001) * 20
+					}
+				} else if (paymentCurrency === "LN") {
+					if (amount >= 1.6 && amount <= 50) {
+						reward = (Math.floor(amount/0.1).toFixed(1)) * 80;
+					} else if (amount < 1.6) {
+						reward = 0;
+					} else {
+						reward = (50/0.1) * 400;
+					}
+				}
+			}
+
+            document.getElementById("reward").innerHTML = reward;
+        }
+    </script>
+</head>
+<body>
+    <h1>DON 回饋計算器</h1>
+	<label for="paymentType">購買方式：</label>
+    <select id="paymentType">
+        <option value="B2C">B2C</option>
+        <option value="C2C">C2C</option>
+    </select>
+    <br>
+    <label for="paymentCurrency">付款幣別：</label>
+    <select id="paymentCurrency">
+        <option value="USD">USD</option>
+        <option value="ETH">ETH</option>
+        <option value="LN">LN</option>
+    </select>
+    <br>
+    <label for="amount">金額：</label>
+    <input type="number" id="amount">
+    <br>
+    <button onclick="calculateReward()">計算回饋</button>
+    <br>
+    <p>回饋數量：<span id="reward"></span> DON</p>
+</body>
+</html>
